@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="StratoDomainDDNSChanger.MVVM.View.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StratoDomainDDNSChanger.MVVM.View"
+             xmlns:converters="clr-namespace:StratoDomainDDNSChanger.Core"
+             xmlns:core="clr-namespace:StratoDomainDDNSChanger.Core" d:DataContext="{d:DesignInstance Type=converters:ConfigData}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <!-- Register the RectConverter as a resource -->
+        <converters:RectConverter x:Key="RectConverter" />
+    </UserControl.Resources>
+
+    <!-- Use Grid as the main layout panel -->
+    <Grid>
+        <!-- Background Border that spans the entire UserControl -->
+        <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" CornerRadius="10">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="LightSlateGray" Offset="0.0"/>
+                    <GradientStop Color="DimGray" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <!-- Optional: Add some content inside the Border to make it visible -->
+            <StackPanel Margin="10,50,50,0" VerticalAlignment="Top">
+                <!-- First line -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,0">
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Text="DomainName" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Name="DomainNameText" Width="400" Text="{Binding  ConfigData.WebsiteUrl}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="White"/>
+                </StackPanel>
+
+                <!-- Second line -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Text="IPv4" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Name="ipv4text" Width="400" Text="{Binding  ConfigData.LastIPv4}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="White"/>
+                </StackPanel>
+
+                <!-- Second line -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Text="IPv6" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Name="ipv6text" Width="400" Text="{Binding  ConfigData.LastIPv6}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="White"/>
+                </StackPanel>
+
+                <!-- Second line -->
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Text="Last Updated" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Name="lastUpdated" Width="400" Text="{Binding  ConfigData.LastUpdated}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Text="Next Update" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Name="nexUpdate" Width="400" Text="{Binding  ConfigData.NextUpdate}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Text="Running" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                    <Image Source="/Images/icon_running.png" Width="25" Height="25">
+                        <Image.RenderTransform>
+                            <!-- CenterX and CenterY are set to half the width and height -->
+                            <RotateTransform x:Name="GetIpImage" CenterX="12.5" CenterY="12.5" />
+                        </Image.RenderTransform>
+                    </Image>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <TextBlock Style="{StaticResource ConfigTextBlock}" Text="Calling DDNS" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                    <Image Source="/Images/icon_running.png" Width="25" Height="25">
+                        <Image.RenderTransform>
+                            <!-- CenterX and CenterY are set to half the width and height -->
+                            <RotateTransform x:Name="DDnsRunningImage" CenterX="12.5" CenterY="12.5" />
+                        </Image.RenderTransform>
+                    </Image>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Button Content="Start Process"
+                            Style="{StaticResource RoundedButtonTextStyle}"
+                            Command="{Binding GetIpButtonCommand}">
+                    </Button>
+
+                    <!-- 
+                    <Button Content="Start DDnsUpdate"
+                            Style="{StaticResource RoundedButtonTextStyle}"
+                            Command="{Binding StartDDnsUpdateCommand}"/>
+                    -->
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        
+        <!-- Add TextBlock above the Border in a different position if needed -->
+        <TextBlock Text="Status"
+                   Foreground="White"
+                   FontSize="28"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="21,19,0,0"/>
+    </Grid>
+</UserControl>

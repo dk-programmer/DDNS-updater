@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="StratoDomainDDNSChanger.MVVM.View.ConfigView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StratoDomainDDNSChanger.MVVM.View"
+             xmlns:converters="clr-namespace:StratoDomainDDNSChanger.Core"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <!-- Use Grid as the main layout panel -->
+    <Grid>
+        <!-- Add ScrollViewer to make content scrollable -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <!-- Background Border that spans the entire UserControl -->
+            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" CornerRadius="10">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="LightSlateGray" Offset="0.0"/>
+                        <GradientStop Color="DimGray" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <StackPanel VerticalAlignment="Top" Margin="0,0,0,10">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="5,0,0,10">
+                        <TextBlock Text="Config"
+                               Foreground="White"
+                               FontSize="28"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"/>
+                    </StackPanel>
+
+                    <!-- Domain -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+                        <TextBlock Style="{StaticResource ConfigTextBlock}" Text="Domain Url" Width="100"/>
+                        <TextBox Style="{StaticResource ConfigTextBox}" Name="domainUrlTextBox" Text="DomainName"/>
+                    </StackPanel>
+                    <!-- username -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+                        <TextBlock Style="{StaticResource ConfigTextBlock}" Text="Username" Width="100"/>
+                        <TextBox Style="{StaticResource ConfigTextBox}" Name="usernameTextBox" Text="username" />
+                    </StackPanel>
+
+                    <!-- pass -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top"  Margin="0,0,0,10">
+                        <TextBlock Style="{StaticResource ConfigTextBlock}" Text="Password" Width="100"/>
+                        <PasswordBox Style="{StaticResource ConfigPasswordBox}" Name="passText" PasswordChanged="PasswordBoxControl_PasswordChanged"/>
+                    </StackPanel>
+
+                    <!-- updateUrl -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+                        <TextBlock Style="{StaticResource ConfigTextBlock}" Text="Update Url" Width="100"/>
+                        <TextBox Style="{StaticResource ConfigTextBox}" Name="updateUrl" Text='https://dyndns.strato.com/nic/update'/>
+                    </StackPanel>
+
+                    <!-- Toggle Button for Autorun -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+                        <ToggleButton Style="{StaticResource CustomToggleButtonStyle}" 
+                                      Name="autorun"
+                                      Content="Autorun"/>
+                        <ToggleButton Style="{StaticResource CustomToggleButtonStyle}" 
+                                      Name="ignoreerrors"
+                                      Content="Ignore Error"/>
+                    </StackPanel>
+
+                    <!-- Toggle Button for IgnoreError -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+
+                    </StackPanel>
+
+                    <!--Buttons-->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+                        <Button Style="{StaticResource RoundedButtonTextStyle}" Content="Save" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Background="DarkOliveGreen" Click="SaveButton_Click"/>
+                        <Button Style="{StaticResource RoundedButtonTextStyle}" Width="200" Content='Reset' HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Background="DarkOliveGreen" Click="LoadButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+
+        <!-- Add TextBlock above the Border in a different position if needed -->
+
+    </Grid>
+</UserControl>
