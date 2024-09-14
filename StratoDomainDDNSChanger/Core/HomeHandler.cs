@@ -213,7 +213,7 @@ namespace StratoDomainDDNSChanger.Core
 
                     // Read and display the response
                     string responseBody = await response.Content.ReadAsStringAsync();
-                    ConfigHandler.Instance.ConfigData.LastUpdated = $"{ System.DateTime.Now.ToString("dd/mm/yy mm:HH")} (ddns message {responseBody}";
+                    ConfigHandler.Instance.ConfigData.LastUpdated = $"{ System.DateTime.Now.ToString("dd/MM/yy HH:mm")} (ddns message {responseBody}";
                     //MessageBox.Show($"Response from DNS update: {responseBody}");
                 }
                 catch (HttpRequestException e)
