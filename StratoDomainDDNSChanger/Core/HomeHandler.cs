@@ -144,12 +144,12 @@ namespace StratoDomainDDNSChanger.Core
                 }
                 if (isIpChanged)
                 {
-                    ConfigHandler.Instance.ConfigData.LastUpdated = System.DateTime.Now.ToString("dd/mm/yy mm:HH") + " (ip has changed)";
+                    ConfigHandler.Instance.ConfigData.LastUpdated = System.DateTime.Now.ToString("dd/MM/yy HH:mm") + " (ip has changed)";
                     StartUpdateDDnsWithConfig();
                 }
                 else
                 {
-                    ConfigHandler.Instance.ConfigData.LastUpdated = System.DateTime.Now.ToString("dd/mm/yy mm:HH") + " (no change)";
+                    ConfigHandler.Instance.ConfigData.LastUpdated = System.DateTime.Now.ToString("dd/MM/yy HH:mm") + " (no change)";
                 }
 
                 float waitSec = 5 * 60;
