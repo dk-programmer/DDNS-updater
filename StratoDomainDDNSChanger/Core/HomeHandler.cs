@@ -96,7 +96,7 @@ namespace StratoDomainDDNSChanger.Core
             else HomeViewModel.Instance.StopDDnsRunningImage(this, null);
         }
 
-        public async Task FetchAndDisplayIpAddressesAsync()
+        async Task FetchAndDisplayIpAddressesAsync()
         {
             CancellationToken ct = ts.Token;
             while (true)
@@ -116,7 +116,6 @@ namespace StratoDomainDDNSChanger.Core
                     catch (Exception)
                     {
                         //TODO logging
-                        //HomeViewModel.Instance?.StopGetIPRunningImage(this, null);
                     }
 
                     try
@@ -132,7 +131,6 @@ namespace StratoDomainDDNSChanger.Core
                     {
 
                         //TODO logging
-                        //HomeViewModel.Instance?.StopGetIPRunningImage(this, null);
                     }
                 }
                 catch (Exception ex)
@@ -163,7 +161,7 @@ namespace StratoDomainDDNSChanger.Core
             }
         }
 
-        public async Task UpdateDDNS(string updateUrl, string hostname, string username, string password, string currentIPv4, string currentIPv6)
+        async Task UpdateDDNS(string updateUrl, string hostname, string username, string password, string currentIPv4, string currentIPv6)
         {
             CancellationToken ct = ts.Token;
             if (string.IsNullOrWhiteSpace(currentIPv4) && string.IsNullOrWhiteSpace(currentIPv6))
@@ -214,7 +212,6 @@ namespace StratoDomainDDNSChanger.Core
                     // Read and display the response
                     string responseBody = await response.Content.ReadAsStringAsync();
                     ConfigHandler.Instance.ConfigData.LastUpdated = $"{ System.DateTime.Now.ToString("dd/MM/yy HH:mm")} (ddns message {responseBody}";
-                    //MessageBox.Show($"Response from DNS update: {responseBody}");
                 }
                 catch (HttpRequestException e)
                 {

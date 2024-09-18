@@ -19,9 +19,6 @@ namespace StratoDomainDDNSChanger.MVVM.ViewModel
         public RelayCommand GetIpButtonCommand { get; set; }
         public RelayCommand StartDDnsUpdateCommand { get; set; }
 
-
-        private DoubleAnimation rotateAnimation;
-
         public HomeViewModel (){
             Instance = this;
             GetIpButtonCommand = new RelayCommand(x =>
@@ -35,13 +32,6 @@ namespace StratoDomainDDNSChanger.MVVM.ViewModel
                 StartDDnsRunningImage(this,null);
             });
 
-            rotateAnimation = new DoubleAnimation
-            {
-                From = 0,
-                To = 360,
-                Duration = new Duration(TimeSpan.FromSeconds(2)),
-                RepeatBehavior = RepeatBehavior.Forever
-            };
             if (HomeHandler.Instance.IsGetIpRunning) StartGetIPRunningImage(this,null);
             if (HomeHandler.Instance.IsDDnsUpdateRunning) StartDDnsRunningImage(this, null);
         }
@@ -52,7 +42,16 @@ namespace StratoDomainDDNSChanger.MVVM.ViewModel
             // Start the animation
             Application.Current.Dispatcher.Invoke(() =>
             {
-                HomeView.Instance?.DDnsRunningImage?.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
+                if (HomeView.Instance == null) return;
+                DoubleAnimation rotateAnimation = new DoubleAnimation
+                {
+                    From = 0,
+                    To = 360,
+                    Duration = new Duration(TimeSpan.FromSeconds(2)),
+                    RepeatBehavior = RepeatBehavior.Forever
+                };
+                RotateTransform rotateTransform = (RotateTransform)HomeView.Instance.DDnsRunningImage;
+                rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
             });
         }
         public void StopDDnsRunningImage(object sender, RoutedEventArgs e)
@@ -69,7 +68,16 @@ namespace StratoDomainDDNSChanger.MVVM.ViewModel
             // Start the animation
             Application.Current.Dispatcher.Invoke(() =>
             {
-                HomeView.Instance?.GetIpImage?.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
+                if (HomeView.Instance == null) return;
+                DoubleAnimation rotateAnimation = new DoubleAnimation
+                {
+                    From = 0,
+                    To = 360,
+                    Duration = new Duration(TimeSpan.FromSeconds(2)),
+                    RepeatBehavior = RepeatBehavior.Forever
+                };
+                RotateTransform rotateTransform = (RotateTransform)HomeView.Instance.GetIpImage;
+                rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
             });
         }
         public void StopGetIPRunningImage(object sender, RoutedEventArgs e)
