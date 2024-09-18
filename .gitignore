@@ -1,3 +1,9 @@
 
 StratoDomainDDNSChanger/bin/Debug/config.json
 StratoDomainDDNSChanger/bin/Release/config.json
+StratoDomainDDNSChanger/.vs
+**/Debug
+**/Release
+StratoDomainDDNSChanger/bin/Release
+StratoDomainDDNSChanger/obj/Release
+StratoDomainDDNSChanger/bin/Release/DDNS Updater 0.5.0.zip
