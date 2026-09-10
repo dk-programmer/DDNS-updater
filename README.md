@@ -87,14 +87,14 @@ Check [Releases](https://github.com/dk-programmer/ddns-updater/releases) for pre
   "LastIPv6": "",
   "LastUpdated": "",
   "GetSelfIPv4Url": "https://api.ipify.org",
-  "GetSelfIPv6Url": "",
+  "GetSelfIPv6Url": "https://api6.ipify.org",
   "Autorun": "true",
   "IgnoreError": "true",
   "NextUpdate": "0"
 }
 ```
 
-> **Note:** `GetSelfIPv4Url` / `GetSelfIPv6Url` are stored in config but the current build always uses ipify for public IP detection.
+> **Note:** Empty `GetSelfIPv6Url` defaults to `https://api6.ipify.org` (AAAA-only). Prefer that over `api64.ipify.org`, which can return an IPv4 address on dual-stack hosts and skip AAAA updates.
 
 ## Usage
 

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
+using System.Web.Script.Serialization;
 using System.Windows;
-using StratoDomainDDNSChanger.MVVM.ViewModel;
-using System.Text.Json;
 
 namespace StratoDomainDDNSChanger.Core
 {
@@ -14,22 +9,44 @@ namespace StratoDomainDDNSChanger.Core
     {
         public static ConfigHandler Instance { get; set; }
 
+        private static readonly string ConfigFilePath =
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
 
-        private static readonly string ConfigFilePath = "config.json";
+        private static readonly JavaScriptSerializer Serializer = new JavaScriptSerializer();
+
         public ConfigData ConfigData { get; private set; }
 
         public ConfigHandler()
         {
             Instance = this;
-            ConfigData = LoadConfig() ?? new ConfigData(); // Load existing config or create new one
+            ConfigData = LoadConfig() ?? new ConfigData();
+            EnsureLookupUrlDefaults();
         }
 
-        // Save the configuration to a file using JSON serialization
+        private void EnsureLookupUrlDefaults()
+        {
+            if (ConfigData == null)
+            {
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(ConfigData.GetSelfIPv4Url))
+            {
+                ConfigData.GetSelfIPv4Url = "https://api.ipify.org";
+            }
+            if (string.IsNullOrWhiteSpace(ConfigData.GetSelfIPv6Url))
+            {
+                // Empty = do not publish AAAA (IPv4-only DynDNS). Set to https://api6.ipify.org to enable.
+                ConfigData.GetSelfIPv6Url = string.Empty;
+            }
+        }
+
         public void SaveConfig()
         {
             try
             {
-                string json = JsonSerializer.Serialize(ConfigData, new JsonSerializerOptions { WriteIndented = true });
+                string json = Serializer.Serialize(ConfigData);
+                // Pretty-print lightly for readability
+                json = FormatJson(json);
                 File.WriteAllText(ConfigFilePath, json);
             }
             catch (Exception ex)
@@ -38,7 +55,6 @@ namespace StratoDomainDDNSChanger.Core
             }
         }
 
-        // Load the configuration from a file using JSON deserialization
         private ConfigData LoadConfig()
         {
             try
@@ -46,7 +62,7 @@ namespace StratoDomainDDNSChanger.Core
                 if (File.Exists(ConfigFilePath))
                 {
                     string json = File.ReadAllText(ConfigFilePath);
-                    return JsonSerializer.Deserialize<ConfigData>(json);
+                    return Serializer.Deserialize<ConfigData>(json);
                 }
             }
             catch (Exception ex)
@@ -56,10 +72,23 @@ namespace StratoDomainDDNSChanger.Core
             return null;
         }
 
-        // Reload the configuration, typically for a UI refresh
         public void ReloadConfig()
         {
             ConfigData = LoadConfig() ?? new ConfigData();
+            EnsureLookupUrlDefaults();
+        }
+
+        private static string FormatJson(string json)
+        {
+            try
+            {
+                var obj = Serializer.DeserializeObject(json);
+                return Serializer.Serialize(obj);
+            }
+            catch
+            {
+                return json;
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace StratoDomainDDNSChanger.Core
         private string _updateUrl = string.Empty;
         private string _userName = string.Empty;
         private string _getSelfIPv4Url = "https://api.ipify.org";
+        // Empty disables AAAA updates (recommended while IPv6 inbound is unreliable)
         private string _getSelfIPv6Url = string.Empty;
         private string _autorun = "1";
         private string _ignoreError = "1";
