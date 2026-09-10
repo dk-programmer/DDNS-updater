@@ -1,32 +1,22 @@
-﻿using StratoDomainDDNSChanger.Core;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Principal;
+using System.Threading;
 using System.Windows;
-
+using StratoDomainDDNSChanger.Core;
 namespace StratoDomainDDNSChanger
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        // Event that handles the startup logic
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private Mutex instance;
+        protected override void OnStartup(StartupEventArgs e)
         {
-            ConfigHandler configHandler = new ConfigHandler();
-            HomeHandler homeHandler = new HomeHandler();
-
-
-            configHandler.ReloadConfig();
-
-            if(configHandler.ConfigData.Autorun == "true")
-            {
-                homeHandler.StartFetchIpAddresses();
-            }
+            base.OnStartup(e);
+            bool created;
+            instance = new Mutex(true, @"Local\DDNS-Updater-" + WindowsIdentity.GetCurrent().User.Value, out created);
+            if (!created) { MessageBox.Show("DDNS Updater is already running."); Shutdown(); return; }
+            try { new MainWindow(new ConfigStore()).Show(); }
+            catch (Exception) { MessageBox.Show("Unable to load settings from " + ConfigStore.DefaultPath + ". The password can only be read by the Windows user who saved it.", "DDNS Updater"); Shutdown(); }
         }
+        protected override void OnExit(ExitEventArgs e) { instance?.Dispose(); base.OnExit(e); }
     }
 }
