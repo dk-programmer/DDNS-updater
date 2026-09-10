@@ -5,7 +5,7 @@ A Windows desktop app for Dynamic DNS, with separate IPv4/IPv6 settings for ever
 ## Set up
 
 1. Enable DynDNS for each domain or subdomain in your provider's control panel.
-2. Run `StratoDomainDDNSChanger.exe`, open **Settings**, and enter the update URL, username and password.
+2. Run `StratoDomainDDNSChanger.exe`, open **Config**, and enter the update URL, username and password.
 3. Use **Add hostname** for each full hostname, for example `example.com` and `game.example.com`.
 4. Choose **IPv4Only**, **IPv6Only**, or **IPv4AndIPv6** independently for each row.
 5. Save. Use **Start** to monitor or **Check now** for one check.

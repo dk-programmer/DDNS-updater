@@ -115,15 +115,15 @@ class Tests
         var store=new ConfigStore(Path.Combine(dir,"config-test.json"));
         var app=new Application{ShutdownMode=ShutdownMode.OnExplicitShutdown};
         var window=new MainWindow(store, Sample());
-        window.Width=900;window.Height=760;
+        window.Width=1000;window.Height=800;
         var tabs=(TabControl)window.FindName("MainTabs");
         var root=(FrameworkElement)window.Content;
         window.Content=null;
         root.Resources=window.Resources;
         for(int index=0;index<2;index++) {
             tabs.SelectedIndex=index;
-            root.Measure(new Size(852,660));root.Arrange(new Rect(0,0,852,660));root.UpdateLayout();
-            var bitmap=new RenderTargetBitmap(900,760,96,96,PixelFormats.Pbgra32);
+            root.Measure(new Size(1000,800));root.Arrange(new Rect(0,0,1000,800));root.UpdateLayout();
+            var bitmap=new RenderTargetBitmap(1000,800,96,96,PixelFormats.Pbgra32);
             bitmap.Render(root);
             var encoder=new PngBitmapEncoder();encoder.Frames.Add(BitmapFrame.Create(bitmap));
             using(var stream=File.Create(Path.Combine(dir,index==0?"status.png":"settings.png")))encoder.Save(stream);

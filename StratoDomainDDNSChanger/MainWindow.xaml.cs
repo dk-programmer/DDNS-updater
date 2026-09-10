@@ -89,6 +89,12 @@ namespace StratoDomainDDNSChanger
             RunStatus.Text = "Stopped"; StartButton.IsEnabled = true; StopButton.IsEnabled = false;
         }
         private void Start_Click(object sender, RoutedEventArgs e) => Start();
+        private void Title_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == System.Windows.Input.MouseButton.Left) DragMove();
+        }
+        private void Minimize_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+        private void Close_Click(object sender, RoutedEventArgs e) => Close();
         private async void Stop_Click(object sender, RoutedEventArgs e)
         {
             StartButton.IsEnabled = false; CheckButton.IsEnabled = false; SaveButton.IsEnabled = false; StopButton.IsEnabled = false;

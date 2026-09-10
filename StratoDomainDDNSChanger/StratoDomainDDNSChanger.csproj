@@ -11,6 +11,7 @@
 <Reference Include="System.Web"/><Reference Include="System.Web.Extensions"/><Reference Include="System.Xaml"/><Reference Include="System.Xml"/>
 <Reference Include="WindowsBase"/><Reference Include="PresentationCore"/><Reference Include="PresentationFramework"/>
 <ApplicationDefinition Include="App.xaml"/><Page Include="MainWindow.xaml"/>
+<Page Include="Theme\*.xaml"/>
 <Compile Include="App.xaml.cs"/><Compile Include="MainWindow.xaml.cs"/><Compile Include="Core\*.cs"/><Compile Include="Properties\AssemblyInfo.cs"/>
 <None Include="App.config"/>
 </ItemGroup><Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
